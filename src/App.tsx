@@ -1,24 +1,24 @@
-import React from 'react'
-import logo from './logo.svg'
+import { Container } from '@material-ui/core'
+import Header from './components/header/header'
+import Post from './components/post/post'
+
 import './App.css'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Header />
+      <Container className="mainContainer" maxWidth="md" component="main">
+        {[...Array(5)].map((x, i) => (
+          <Post
+            key={i}
+            image="https://i.ytimg.com/vi/zdhCB3LpP9g/maxresdefault.jpg"
+            title="Template post"
+            date="9/9/2021"
+            description="This is a short description"
+          />
+        ))}
+      </Container>
     </div>
   )
 }

@@ -1,0 +1,30 @@
+.card {
+  margin-bottom: 16px;
+}
+
+.cardContent {
+  padding: 8px;
+}
+
+.likeAndDate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  padding: 2px 8px 0 8px;
+}
+
+.likeButton {
+  cursor: pointer;
+  border: 0;
+  background: 0 0;
+  padding: 0;
+}
+
+/*tablets or bigger*/
+@media screen and (min-width: 768px) {
+  .likeButton:hover {
+    transform: scale(1.3);
+  }
+}
