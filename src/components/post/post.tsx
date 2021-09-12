@@ -3,6 +3,7 @@ import { Card, CardMedia, Typography } from '@material-ui/core'
 import { pink } from '@material-ui/core/colors'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
+import ShowMoreText from 'react-show-more-text'
 
 import styles from './post.module.css'
 
@@ -14,7 +15,7 @@ type CardProps = {
 }
 
 export default function Post({ image, title, date, description }: CardProps) {
-  const [isLiked, setIsLiked] = useState<boolean>(false)
+  const [isLiked, setIsLiked] = useState(false)
 
   const likePost = () => {
     setIsLiked(!isLiked)
@@ -41,12 +42,22 @@ export default function Post({ image, title, date, description }: CardProps) {
             )}
           </button>
           <Typography variant="body2" color="textSecondary">
-            {date}
+            {new Date(date).toDateString()}
           </Typography>
         </div>
-        <Typography variant="body2" color="textSecondary">
+        <ShowMoreText
+          lines={3}
+          more="More"
+          less="Less"
+          className={[
+            'MuiTypography-root',
+            'MuiTypography-body2',
+            'MuiTypography-colorTextSecondary',
+          ].join(' ')}
+          anchorClass={styles.showMore}
+        >
           {description}
-        </Typography>
+        </ShowMoreText>
       </div>
     </Card>
   )

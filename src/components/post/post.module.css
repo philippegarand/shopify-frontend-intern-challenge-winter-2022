@@ -11,6 +11,10 @@
   justify-content: space-between;
 }
 
+.showMore {
+  color: black;
+}
+
 .title {
   padding: 2px 8px 0 8px;
 }
@@ -20,6 +24,10 @@
   border: 0;
   background: 0 0;
   padding: 0;
+}
+
+.skeletonTitle {
+  padding: 2px 8px;
 }
 
 /*tablets or bigger*/
