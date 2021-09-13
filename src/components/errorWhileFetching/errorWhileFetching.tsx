@@ -4,11 +4,11 @@ import { Button, Typography } from '@material-ui/core'
 
 import styles from './errorWhileFetching.module.css'
 
-type props = {
+type Props = {
   onClick: () => void
 }
 
-export default function ErrorWhileFetching({ onClick }: props) {
+export default function ErrorWhileFetching({ onClick }: Props) {
   return (
     <div className={styles.content}>
       <WarningIcon color="inherit" />

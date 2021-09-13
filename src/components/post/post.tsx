@@ -7,14 +7,14 @@ import ShowMoreText from 'react-show-more-text'
 
 import styles from './post.module.css'
 
-type CardProps = {
+type Props = {
   image: string
   title: string
   date: string
   description: string
 }
 
-export default function Post({ image, title, date, description }: CardProps) {
+export default function Post({ image, title, date, description }: Props) {
   const [isLiked, setIsLiked] = useState(false)
 
   const likePost = () => {

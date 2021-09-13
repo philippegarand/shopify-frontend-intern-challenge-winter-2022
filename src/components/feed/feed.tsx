@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
+import { getImages, ImageDetails } from '../../api/nasaAPODClient'
 import Post from '../post/post'
-import { getImages, imagesResponse } from '../../api/nasaAPODClient'
 import PostSkeleton from '../post/postSkeleton'
 import ErrorWhileFetching from '../errorWhileFetching/errorWhileFetching'
 
+const NUMBER_OF_IMAGES_TO_PULL = 10
+
 export default function Feed() {
-  const [images, setImages] = useState<imagesResponse[]>()
+  const [images, setImages] = useState<ImageDetails[]>()
   const [isLoading, setIsLoading] = useState(true)
   const [errorWhileFetching, setErrorWhileFetching] = useState(false)
 
@@ -29,7 +31,7 @@ export default function Feed() {
     async function pullImages() {
       try {
         const imagesResult = await getImages({
-          count: 10,
+          count: NUMBER_OF_IMAGES_TO_PULL,
         })
 
         setImages((images) =>
