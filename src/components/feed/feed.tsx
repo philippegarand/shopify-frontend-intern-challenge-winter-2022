@@ -2,26 +2,43 @@ import { useEffect, useState } from 'react'
 import Post from '../post/post'
 import { getImages, imagesResponse } from '../../api/nasaAPODClient'
 import PostSkeleton from '../post/postSkeleton'
+import ErrorWhileFetching from '../errorWhileFetching/errorWhileFetching'
 
 export default function Feed() {
   const [images, setImages] = useState<imagesResponse[]>()
   const [isLoading, setIsLoading] = useState(true)
+  const [errorWhileFetching, setErrorWhileFetching] = useState(false)
 
   useEffect(() => {
+    const fetchMoreImages = () => {
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+        !errorWhileFetching
+      ) {
+        setIsLoading(true)
+      }
+    }
+
     window.addEventListener('scroll', fetchMoreImages)
     return () => {
       window.removeEventListener('scroll', fetchMoreImages)
     }
-  }, [])
+  }, [errorWhileFetching])
 
   useEffect(() => {
     async function pullImages() {
-      const imagesResult = await getImages({
-        count: 10,
-      })
-      setImages((images) =>
-        images ? images.concat(imagesResult) : imagesResult
-      )
+      try {
+        const imagesResult = await getImages({
+          count: 10,
+        })
+
+        setImages((images) =>
+          images ? images.concat(imagesResult) : imagesResult
+        )
+      } catch (error) {
+        setErrorWhileFetching(true)
+      }
+
       setIsLoading(false)
     }
 
@@ -30,10 +47,9 @@ export default function Feed() {
     }
   }, [isLoading])
 
-  const fetchMoreImages = () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      setIsLoading(true)
-    }
+  const handleFetchRetry = () => {
+    setIsLoading(true)
+    setErrorWhileFetching(false)
   }
 
   return (
@@ -48,6 +64,7 @@ export default function Feed() {
         />
       ))}
       {isLoading && <PostSkeleton />}
+      {errorWhileFetching && <ErrorWhileFetching onClick={handleFetchRetry} />}
     </div>
   )
 }

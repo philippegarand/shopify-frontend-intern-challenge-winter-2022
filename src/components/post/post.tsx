@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Card, CardMedia, Typography } from '@material-ui/core'
+import { Card, CardMedia, IconButton, Typography } from '@material-ui/core'
 import { pink } from '@material-ui/core/colors'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
@@ -34,13 +34,19 @@ export default function Post({ image, title, date, description }: CardProps) {
       />
       <div className={styles.cardContent}>
         <div className={styles.likeAndDate}>
-          <button onClick={likePost} className={styles.likeButton}>
+          <IconButton
+            color="primary"
+            disableRipple
+            onClick={likePost}
+            edge="start"
+            size="small"
+          >
             {isLiked ? (
               <FavoriteIcon style={{ color: pink[500] }} />
             ) : (
               <FavoriteBorderIcon color="disabled" />
             )}
-          </button>
+          </IconButton>
           <Typography variant="body2" color="textSecondary">
             {new Date(date).toDateString()}
           </Typography>

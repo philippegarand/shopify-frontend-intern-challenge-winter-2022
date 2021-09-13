@@ -46,7 +46,6 @@ const isError = (res: any): res is errorResponse =>
 
 export const getImages = async (params: params): Promise<imagesResponse[]> => {
   let url = new URL(API_BASE_URL)
-
   url.searchParams.append('count', params.count.toString())
 
   const res = await fetch(url.toString())
@@ -56,10 +55,11 @@ export const getImages = async (params: params): Promise<imagesResponse[]> => {
 
     if (isError(jsonRes)) {
       const error = jsonRes as errorResponse
+      const errorString = `code=${error.code} msg=${error.msg} service_version=${error.service_version}`
 
-      console.log(
-        `API response succeed, but there is an error: code=${error.code} msg=${error.msg} service_version=${error.service_version}`
-      )
+      console.log(`API response succeed, but there is an error: ${errorString}`)
+
+      throw new Error(errorString)
     }
 
     return (jsonRes as result[]).map(
