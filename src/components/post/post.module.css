@@ -3,37 +3,19 @@
 }
 
 .cardContent {
-  padding: 8px;
+  padding: 4px 16px 16px 16px;
 }
 
-.likeAndDate {
+.contentTop {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
 }
 
 .showMore {
   color: black;
 }
 
-.title {
-  padding: 2px 8px 0 8px;
-}
-
-.likeButton {
-  cursor: pointer;
-  border: 0;
-  background: 0 0;
-  padding: 0;
-  align-items: center;
-}
-
 .skeletonTitle {
-  padding: 2px 8px;
-}
-
-/*tablets or bigger*/
-@media screen and (min-width: 768px) {
-  .likeButton:hover {
-    transform: scale(1.3);
-  }
+  padding: 2px 0px;
 }

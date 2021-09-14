@@ -59,7 +59,7 @@ export default function Feed() {
       {images?.map((x, i) => (
         <Post
           key={i}
-          image={x.link}
+          imageUrl={x.link}
           title={x.title}
           date={x.date}
           description={x.description}

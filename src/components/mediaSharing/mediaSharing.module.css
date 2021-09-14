@@ -1,0 +1,18 @@
+.buttons {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+
+/* color codes taken from https://materialui.co/socialcolors/ */
+.facebook {
+  color: #1877f2;
+}
+
+.twitter {
+  color: #1da1f2;
+}
+
+.reddit {
+  color: #ff5700;
+}

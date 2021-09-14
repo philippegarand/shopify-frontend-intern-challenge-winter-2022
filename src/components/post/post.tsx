@@ -4,17 +4,18 @@ import { pink } from '@material-ui/core/colors'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShowMoreText from 'react-show-more-text'
+import MediaSharing from '../mediaSharing/mediaSharing'
 
 import styles from './post.module.css'
 
 type Props = {
-  image: string
+  imageUrl: string
   title: string
   date: string
   description: string
 }
 
-export default function Post({ image, title, date, description }: Props) {
+export default function Post({ imageUrl, title, date, description }: Props) {
   const [isLiked, setIsLiked] = useState(false)
 
   const likePost = () => {
@@ -23,23 +24,20 @@ export default function Post({ image, title, date, description }: Props) {
 
   return (
     <Card variant="outlined" className={styles.card} component="article">
-      <header className={styles.title}>
-        <Typography variant="h6">{title}</Typography>
-      </header>
       <CardMedia
         component="img"
-        src={image}
+        src={imageUrl}
         title={title}
         onDoubleClick={likePost}
       />
       <div className={styles.cardContent}>
-        <div className={styles.likeAndDate}>
+        <div className={styles.contentTop}>
           <IconButton
             color="primary"
-            disableRipple
             onClick={likePost}
             edge="start"
             size="small"
+            aria-label="like post"
           >
             {isLiked ? (
               <FavoriteIcon style={{ color: pink[500] }} />
@@ -47,19 +45,23 @@ export default function Post({ image, title, date, description }: Props) {
               <FavoriteBorderIcon color="disabled" />
             )}
           </IconButton>
+          <MediaSharing imageUrl={imageUrl} title={title} />
           <Typography variant="body2" color="textSecondary">
-            {new Date(date).toDateString()}
+            {new Date(date).toLocaleDateString()}
           </Typography>
         </div>
+        <header>
+          <Typography variant="subtitle1" component="h2">
+            {title}
+          </Typography>
+        </header>
         <ShowMoreText
           lines={3}
           more="More"
           less="Less"
-          className={[
-            'MuiTypography-root',
-            'MuiTypography-body2',
-            'MuiTypography-colorTextSecondary',
-          ].join(' ')}
+          className={
+            'MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary'
+          }
           anchorClass={styles.showMore}
         >
           {description}
