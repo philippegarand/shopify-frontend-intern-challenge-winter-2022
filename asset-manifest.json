@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/shopify-frontend-intern-challenge-winter-2022/static/css/main.bb7f1dc9.chunk.css",
-    "main.js": "/shopify-frontend-intern-challenge-winter-2022/static/js/main.c7deaea9.chunk.js",
-    "main.js.map": "/shopify-frontend-intern-challenge-winter-2022/static/js/main.c7deaea9.chunk.js.map",
-    "runtime-main.js": "/shopify-frontend-intern-challenge-winter-2022/static/js/runtime-main.d458cc72.js",
-    "runtime-main.js.map": "/shopify-frontend-intern-challenge-winter-2022/static/js/runtime-main.d458cc72.js.map",
-    "static/js/2.39053756.chunk.js": "/shopify-frontend-intern-challenge-winter-2022/static/js/2.39053756.chunk.js",
-    "static/js/2.39053756.chunk.js.map": "/shopify-frontend-intern-challenge-winter-2022/static/js/2.39053756.chunk.js.map",
-    "static/js/3.4e5cc9e1.chunk.js": "/shopify-frontend-intern-challenge-winter-2022/static/js/3.4e5cc9e1.chunk.js",
-    "static/js/3.4e5cc9e1.chunk.js.map": "/shopify-frontend-intern-challenge-winter-2022/static/js/3.4e5cc9e1.chunk.js.map",
+    "main.css": "/shopify-frontend-intern-challenge-winter-2022/static/css/main.8a30090c.chunk.css",
+    "main.js": "/shopify-frontend-intern-challenge-winter-2022/static/js/main.b3e9f3b6.chunk.js",
+    "main.js.map": "/shopify-frontend-intern-challenge-winter-2022/static/js/main.b3e9f3b6.chunk.js.map",
+    "runtime-main.js": "/shopify-frontend-intern-challenge-winter-2022/static/js/runtime-main.af131a6a.js",
+    "runtime-main.js.map": "/shopify-frontend-intern-challenge-winter-2022/static/js/runtime-main.af131a6a.js.map",
+    "static/js/2.0ec30dc5.chunk.js": "/shopify-frontend-intern-challenge-winter-2022/static/js/2.0ec30dc5.chunk.js",
+    "static/js/2.0ec30dc5.chunk.js.map": "/shopify-frontend-intern-challenge-winter-2022/static/js/2.0ec30dc5.chunk.js.map",
+    "static/js/3.90f3518f.chunk.js": "/shopify-frontend-intern-challenge-winter-2022/static/js/3.90f3518f.chunk.js",
+    "static/js/3.90f3518f.chunk.js.map": "/shopify-frontend-intern-challenge-winter-2022/static/js/3.90f3518f.chunk.js.map",
     "index.html": "/shopify-frontend-intern-challenge-winter-2022/index.html",
-    "static/css/main.bb7f1dc9.chunk.css.map": "/shopify-frontend-intern-challenge-winter-2022/static/css/main.bb7f1dc9.chunk.css.map",
-    "static/js/2.39053756.chunk.js.LICENSE.txt": "/shopify-frontend-intern-challenge-winter-2022/static/js/2.39053756.chunk.js.LICENSE.txt",
+    "static/css/main.8a30090c.chunk.css.map": "/shopify-frontend-intern-challenge-winter-2022/static/css/main.8a30090c.chunk.css.map",
+    "static/js/2.0ec30dc5.chunk.js.LICENSE.txt": "/shopify-frontend-intern-challenge-winter-2022/static/js/2.0ec30dc5.chunk.js.LICENSE.txt",
     "static/media/logo.dea97208.svg": "/shopify-frontend-intern-challenge-winter-2022/static/media/logo.dea97208.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.d458cc72.js",
-    "static/js/2.39053756.chunk.js",
-    "static/css/main.bb7f1dc9.chunk.css",
-    "static/js/main.c7deaea9.chunk.js"
+    "static/js/runtime-main.af131a6a.js",
+    "static/js/2.0ec30dc5.chunk.js",
+    "static/css/main.8a30090c.chunk.css",
+    "static/js/main.b3e9f3b6.chunk.js"
   ]
 }
