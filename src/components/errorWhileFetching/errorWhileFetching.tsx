@@ -4,7 +4,7 @@ import { Button, Typography } from '@material-ui/core'
 
 import styles from './errorWhileFetching.module.css'
 
-type Props = {
+interface Props {
   onClick: () => void
 }
 
@@ -12,7 +12,6 @@ export default function ErrorWhileFetching({ onClick }: Props) {
   return (
     <div className={styles.content}>
       <WarningIcon color="inherit" />
-
       <Typography variant="body1" color="textSecondary" align="center">
         Could not fetch more posts...
       </Typography>

@@ -9,7 +9,7 @@ import TwitterIcon from '@material-ui/icons/Twitter'
 
 import styles from './mediaSharing.module.css'
 
-type Props = {
+interface Props {
   imageUrl: string
   title: string
 }
@@ -22,7 +22,7 @@ export default function MediaSharing({ imageUrl, title }: Props) {
       </FacebookShareButton>
 
       <TwitterShareButton url={imageUrl} title={title} hashtags={['NASA']}>
-        <TwitterIcon className={styles.twitter} color="inherit" />
+        <TwitterIcon className={styles.twitter} />
       </TwitterShareButton>
 
       <RedditShareButton url={imageUrl} title={title}>

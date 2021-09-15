@@ -6,7 +6,7 @@ import styles from './post.module.css'
 export default function PostSkeleton() {
   return (
     <Card variant="outlined" className={styles.card} component="article">
-      <Skeleton variant="rect" height={200} />
+      <Skeleton className={styles.skeletonImage} variant="rect" />
       <div className={styles.cardContent}>
         <header className={styles.skeletonTitle}>
           <Typography variant="subtitle1">
