@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getImages, ImageDetails } from '../../api/nasaAPODClient'
 import Post from '../post/post'
 import PostSkeleton from '../post/postSkeleton'
@@ -8,49 +8,51 @@ const NUMBER_OF_IMAGES_TO_PULL = 10
 
 export default function Feed() {
   const [images, setImages] = useState<ImageDetails[]>()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [errorWhileFetching, setErrorWhileFetching] = useState(false)
 
-  useEffect(() => {
-    const fetchMoreImages = () => {
-      if (
-        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-        !errorWhileFetching
-      ) {
-        setIsLoading(true)
-      }
+  const pullImages = useCallback(async () => {
+    setIsLoading(true)
+
+    try {
+      const imagesResult = await getImages({
+        count: NUMBER_OF_IMAGES_TO_PULL,
+      })
+
+      setImages((images) =>
+        images ? images.concat(imagesResult) : imagesResult
+      )
+    } catch (error) {
+      setErrorWhileFetching(true)
     }
 
-    window.addEventListener('scroll', fetchMoreImages)
-    return () => {
-      window.removeEventListener('scroll', fetchMoreImages)
-    }
-  }, [errorWhileFetching])
+    setIsLoading(false)
+  }, [])
 
-  useEffect(() => {
-    async function pullImages() {
-      try {
-        const imagesResult = await getImages({
-          count: NUMBER_OF_IMAGES_TO_PULL,
-        })
-
-        setImages((images) =>
-          images ? images.concat(imagesResult) : imagesResult
-        )
-      } catch (error) {
-        setErrorWhileFetching(true)
-      }
-
-      setIsLoading(false)
-    }
-
-    if (isLoading) {
+  const handleScroll = useCallback(() => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+      !errorWhileFetching &&
+      !isLoading
+    ) {
       pullImages()
     }
-  }, [isLoading])
+  }, [isLoading, pullImages, errorWhileFetching])
+
+  useEffect(() => {
+    pullImages()
+  }, [pullImages])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [handleScroll])
 
   const handleFetchRetry = () => {
-    setIsLoading(true)
+    pullImages()
     setErrorWhileFetching(false)
   }
 
