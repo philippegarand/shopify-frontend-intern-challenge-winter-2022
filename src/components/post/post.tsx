@@ -3,12 +3,14 @@ import { Card, CardMedia, IconButton, Typography } from '@material-ui/core'
 import { pink } from '@material-ui/core/colors'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShowMoreText from 'react-show-more-text'
 import MediaSharing from '../mediaSharing/mediaSharing'
+import TypographyReadMore from '../typographyReadMore/typographyReadMore'
 
 import styles from './post.module.css'
 
-type Props = {
+const MAX_CHAR_TO_SHOW = 160
+
+interface Props {
   imageUrl: string
   title: string
   date: string
@@ -55,17 +57,13 @@ export default function Post({ imageUrl, title, date, description }: Props) {
             {title}
           </Typography>
         </header>
-        <ShowMoreText
-          lines={3}
-          more="More"
-          less="Less"
-          className={
-            'MuiTypography-root MuiTypography-body2 MuiTypography-colorTextSecondary'
-          }
-          anchorClass={styles.showMore}
-        >
-          {description}
-        </ShowMoreText>
+        <TypographyReadMore
+          text={description}
+          charsNumberToShow={MAX_CHAR_TO_SHOW}
+          variant="body2"
+          color="textSecondary"
+          align="justify"
+        />
       </div>
     </Card>
   )
