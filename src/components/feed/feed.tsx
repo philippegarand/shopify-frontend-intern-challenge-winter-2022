@@ -4,7 +4,7 @@ import Post from '../post/post'
 import PostSkeleton from '../post/postSkeleton'
 import ErrorWhileFetching from '../errorWhileFetching/errorWhileFetching'
 
-const NUMBER_OF_IMAGES_TO_PULL = 10
+const NUMBER_OF_IMAGES_TO_PULL = 3
 
 export default function Feed() {
   const [images, setImages] = useState<ImageDetails[]>()
@@ -29,9 +29,10 @@ export default function Feed() {
     setIsLoading(false)
   }, [])
 
-  const handleScroll = useCallback(() => {
+  const handleInfiniteScroll = useCallback(() => {
     if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+      window.innerHeight + window.scrollY >=
+        document.body.offsetHeight * 0.75 &&
       !errorWhileFetching &&
       !isLoading
     ) {
@@ -44,12 +45,12 @@ export default function Feed() {
   }, [pullImages])
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleInfiniteScroll)
 
     return () => {
-      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('scroll', handleInfiniteScroll)
     }
-  }, [handleScroll])
+  }, [handleInfiniteScroll])
 
   const handleFetchRetry = () => {
     pullImages()
