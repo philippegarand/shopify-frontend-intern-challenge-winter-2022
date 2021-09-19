@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Card, CardMedia, IconButton, Typography } from '@material-ui/core'
 import { pink } from '@material-ui/core/colors'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
@@ -19,22 +19,29 @@ interface Props {
   }
 }
 
-export default function Post2({ data }: Props) {
+function Post({ data }: Props) {
+  const { title, description, date, imageUrl } = data
+
   const [isLiked, setIsLiked] = useState(
-    localStorage.getItem(data.imageUrl) ?? false
+    localStorage.getItem(imageUrl) ?? false
   )
 
   const likePost = () => {
     setIsLiked(!isLiked)
-    localStorage.setItem(data.imageUrl, '1')
+
+    if (localStorage.getItem(imageUrl)) {
+      localStorage.removeItem(imageUrl)
+    } else {
+      localStorage.setItem(imageUrl, '1')
+    }
   }
 
   return (
     <Card variant="outlined" className={styles.card} component="article">
       <CardMedia
         component="img"
-        src={data.imageUrl}
-        title={data.title}
+        src={imageUrl}
+        title={title}
         onDoubleClick={likePost}
       />
       <div className={styles.cardContent}>
@@ -52,18 +59,18 @@ export default function Post2({ data }: Props) {
               <FavoriteBorderIcon color="disabled" />
             )}
           </IconButton>
-          <MediaSharing imageUrl={data.imageUrl} title={data.title} />
+          <MediaSharing imageUrl={imageUrl} title={title} />
           <Typography variant="body2" color="textSecondary">
-            {new Date(data.date).toLocaleDateString()}
+            {new Date(date).toLocaleDateString()}
           </Typography>
         </div>
         <header>
           <Typography variant="subtitle1" component="h2">
-            {data.title}
+            {title}
           </Typography>
         </header>
         <TypographyReadMore
-          text={data.description}
+          text={description}
           charsNumberToShow={MAX_CHAR_TO_SHOW}
           variant="body2"
           color="textSecondary"
@@ -73,3 +80,5 @@ export default function Post2({ data }: Props) {
     </Card>
   )
 }
+
+export default React.memo(Post)

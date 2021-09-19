@@ -33,7 +33,7 @@ type ErrorResponse = {
 
 type ApiResponse = Result[] | ErrorResponse
 
-export type ImageDetails = {
+export type PostDetails = {
   imageUrl: string
   title: string
   description: string
@@ -45,7 +45,7 @@ const isError = (res: ApiResponse): res is ErrorResponse => {
   return (res as ErrorResponse).code !== undefined
 }
 
-export const getImages = async (params: Params): Promise<ImageDetails[]> => {
+export const getPosts = async (params: Params): Promise<PostDetails[]> => {
   let url = new URL(API_BASE_URL)
 
   url.searchParams.append('count', params.count.toString())
@@ -78,6 +78,6 @@ export const getImages = async (params: Params): Promise<ImageDetails[]> => {
         title: x.title,
         description: x.explanation,
         date: x.date,
-      } as ImageDetails)
+      } as PostDetails)
   )
 }

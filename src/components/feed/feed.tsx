@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Virtuoso } from 'react-virtuoso'
-import { getImages, ImageDetails } from '../../api/nasaAPODClient'
+import { getPosts, PostDetails } from '../../api/nasaAPODClient'
 import ErrorWhileFetching from '../errorWhileFetching/errorWhileFetching'
 import Post from '../post/post'
 import PostSkeleton from '../post/postSkeleton'
 
-const NUMBER_OF_IMAGES_TO_PULL = 3
+const NUMBER_OF_POSTS_TO_PULL = 5
 
 export default function Feed() {
-  const [postsList, setPostsList] = useState<ImageDetails[]>([])
+  const [postsList, setPostsList] = useState<PostDetails[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [errorWhileFetching, setErrorWhileFetching] = useState(false)
 
@@ -16,8 +16,8 @@ export default function Feed() {
     setIsLoading(true)
 
     try {
-      const imagesResult = await getImages({
-        count: NUMBER_OF_IMAGES_TO_PULL,
+      const imagesResult = await getPosts({
+        count: NUMBER_OF_POSTS_TO_PULL,
       })
 
       setPostsList((posts) =>
@@ -30,17 +30,6 @@ export default function Feed() {
     setIsLoading(false)
   }, [])
 
-  const handleInfiniteScroll = useCallback(() => {
-    if (
-      window.innerHeight + window.scrollY >=
-        document.body.offsetHeight * 0.75 &&
-      !errorWhileFetching &&
-      !isLoading
-    ) {
-      pullImages()
-    }
-  }, [isLoading, pullImages, errorWhileFetching])
-
   useEffect(() => {
     pullImages()
   }, [pullImages])
@@ -50,7 +39,7 @@ export default function Feed() {
     setErrorWhileFetching(false)
   }
 
-  const listFooter = () => {
+  const feedFooter = () => {
     if (isLoading) {
       return <PostSkeleton />
     }
@@ -64,14 +53,15 @@ export default function Feed() {
 
   return (
     <Virtuoso
-      isScrolling={handleInfiniteScroll}
+      endReached={pullImages}
       data={postsList}
       itemContent={(index, post) => {
         return <Post data={post} />
       }}
+      overscan={{ main: 1000, reverse: 1000 }}
       useWindowScroll
       components={{
-        Footer: listFooter,
+        Footer: feedFooter,
       }}
     />
   )
