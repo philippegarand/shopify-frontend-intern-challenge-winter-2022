@@ -10,7 +10,7 @@ interface Props extends TypographyProps {
 export default function TypographyReadMore(props: Props) {
   const { text, charsNumberToShow, ...typographyProps } = props
 
-  const needShowMore = text.length > charsNumberToShow
+  const needShowMore = text?.length > charsNumberToShow
   const [isReadMore, setIsReadMore] = useState(needShowMore)
 
   const toggleReadMore = () => {

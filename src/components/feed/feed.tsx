@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
+import { Virtuoso } from 'react-virtuoso'
 import { getImages, ImageDetails } from '../../api/nasaAPODClient'
+import ErrorWhileFetching from '../errorWhileFetching/errorWhileFetching'
 import Post from '../post/post'
 import PostSkeleton from '../post/postSkeleton'
-import ErrorWhileFetching from '../errorWhileFetching/errorWhileFetching'
 
 const NUMBER_OF_IMAGES_TO_PULL = 3
 
 export default function Feed() {
-  const [images, setImages] = useState<ImageDetails[]>()
+  const [postsList, setPostsList] = useState<ImageDetails[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [errorWhileFetching, setErrorWhileFetching] = useState(false)
 
@@ -19,8 +20,8 @@ export default function Feed() {
         count: NUMBER_OF_IMAGES_TO_PULL,
       })
 
-      setImages((images) =>
-        images ? images.concat(imagesResult) : imagesResult
+      setPostsList((posts) =>
+        posts ? posts.concat(imagesResult) : imagesResult
       )
     } catch (error) {
       setErrorWhileFetching(true)
@@ -44,32 +45,34 @@ export default function Feed() {
     pullImages()
   }, [pullImages])
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleInfiniteScroll)
-
-    return () => {
-      window.removeEventListener('scroll', handleInfiniteScroll)
-    }
-  }, [handleInfiniteScroll])
-
   const handleFetchRetry = () => {
     pullImages()
     setErrorWhileFetching(false)
   }
 
+  const listFooter = () => {
+    if (isLoading) {
+      return <PostSkeleton />
+    }
+
+    if (errorWhileFetching) {
+      return <ErrorWhileFetching onClick={handleFetchRetry} />
+    }
+
+    return <></>
+  }
+
   return (
-    <div>
-      {images?.map((x, i) => (
-        <Post
-          key={i}
-          imageUrl={x.link}
-          title={x.title}
-          date={x.date}
-          description={x.description}
-        />
-      ))}
-      {isLoading && <PostSkeleton />}
-      {errorWhileFetching && <ErrorWhileFetching onClick={handleFetchRetry} />}
-    </div>
+    <Virtuoso
+      isScrolling={handleInfiniteScroll}
+      data={postsList}
+      itemContent={(index, post) => {
+        return <Post data={post} />
+      }}
+      useWindowScroll
+      components={{
+        Footer: listFooter,
+      }}
+    />
   )
 }

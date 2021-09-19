@@ -34,11 +34,11 @@ type ErrorResponse = {
 type ApiResponse = Result[] | ErrorResponse
 
 export type ImageDetails = {
-  link: string
+  imageUrl: string
   title: string
   description: string
   date: string
-  author: string
+  //author: string
 }
 
 const isError = (res: ApiResponse): res is ErrorResponse => {
@@ -73,8 +73,8 @@ export const getImages = async (params: Params): Promise<ImageDetails[]> => {
   return (jsonRes as Result[]).map(
     (x) =>
       ({
-        link: x.thumbnail_url ?? x.url,
-        author: x.copyright,
+        imageUrl: x.thumbnail_url ?? x.url,
+        //author: x.copyright,
         title: x.title,
         description: x.explanation,
         date: x.date,

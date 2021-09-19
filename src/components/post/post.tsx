@@ -11,25 +11,30 @@ import styles from './post.module.css'
 const MAX_CHAR_TO_SHOW = 160
 
 interface Props {
-  imageUrl: string
-  title: string
-  date: string
-  description: string
+  data: {
+    imageUrl: string
+    title: string
+    date: string
+    description: string
+  }
 }
 
-export default function Post({ imageUrl, title, date, description }: Props) {
-  const [isLiked, setIsLiked] = useState(false)
+export default function Post2({ data }: Props) {
+  const [isLiked, setIsLiked] = useState(
+    localStorage.getItem(data.imageUrl) ?? false
+  )
 
   const likePost = () => {
     setIsLiked(!isLiked)
+    localStorage.setItem(data.imageUrl, '1')
   }
 
   return (
     <Card variant="outlined" className={styles.card} component="article">
       <CardMedia
         component="img"
-        src={imageUrl}
-        title={title}
+        src={data.imageUrl}
+        title={data.title}
         onDoubleClick={likePost}
       />
       <div className={styles.cardContent}>
@@ -47,18 +52,18 @@ export default function Post({ imageUrl, title, date, description }: Props) {
               <FavoriteBorderIcon color="disabled" />
             )}
           </IconButton>
-          <MediaSharing imageUrl={imageUrl} title={title} />
+          <MediaSharing imageUrl={data.imageUrl} title={data.title} />
           <Typography variant="body2" color="textSecondary">
-            {new Date(date).toLocaleDateString()}
+            {new Date(data.date).toLocaleDateString()}
           </Typography>
         </div>
         <header>
           <Typography variant="subtitle1" component="h2">
-            {title}
+            {data.title}
           </Typography>
         </header>
         <TypographyReadMore
-          text={description}
+          text={data.description}
           charsNumberToShow={MAX_CHAR_TO_SHOW}
           variant="body2"
           color="textSecondary"
